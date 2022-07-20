@@ -1,5 +1,4 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.types import ReplyKeyboardMarkup
 
 API_ID = "15806487"
@@ -19,17 +18,14 @@ VINESH = Client(
 async def about_cmd(client, message):
     await message.reply_text("Bot status")
 
-START_BUTTONS = [[
-  InlineKeyboardButton("JOIN HERE", url="t.me/tamil_hackers_moviess")
-]]
 
 @VINESH.on_message(filters.command("start"))
 async def start_cmd(client, message):
     await message.reply_photo(
         photo="https://telegra.ph/file/c747f9fd6721860623ee1.jpg",
         caption="Hello {}  I am Rolex")
-        reply_markup=InlineKeyboardMarkup(START_BUTTON)
     )
+
 
 @VINESH.on_message(filters.command("help"))
 async def help_cmd(client, message):
