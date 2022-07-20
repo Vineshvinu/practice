@@ -15,11 +15,16 @@ VINESH = Client(
 
 @VINESH.on_message(filters.command("start"))
 async def start_cmd(client, message):
-    await message.reply_text("Hello..! Iam Vinesh practice demo bot")
+    await message.reply_photo(
+        photo="value",
+        caption="Hello guys I am")
 
 @VINESH.on_message(filters.command("about"))
 async def about_cmd(client, message):
     await message.reply_text("Bot status")
+
+
+
 
 print("Bot started")
 
