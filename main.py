@@ -38,7 +38,7 @@ async def help_cmd(client, message):
         caption="Hello {}  I am Rolex")
         reply_markup=InlineKeyboardMarkup(
             [[
-                "HELP 🤗", "VINU ❤️","ABOUT ⚙️"
+                "HELP 🤗", "VINU ❤️", "ABOUT ⚙️"
             ],[
                 "JOIN MY CHANNEL"
             ]],
