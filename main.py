@@ -21,11 +21,11 @@ async def start_cmd(client, message):
 async def help_cmd(client, message):
     print("HELP COMMAND")
 
-@vinesh.on_message(filters.command("start"))
+@VINESH.on_message(filters.command("start"))
 async def start_cmd(client, message):
     await message.reply_text("Hello..! Iam Vinesh practice demo bot")
 
-@vinesh.on_message(filters.command("about"))
+@VINESH.on_message(filters.command("about"))
 async def about_cmd(client, message):
     await message.reply_text("Bot status")
 
