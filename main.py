@@ -24,7 +24,6 @@ async def start_cmd(client, message):
     await message.reply_photo(
         photo="https://telegra.ph/file/c747f9fd6721860623ee1.jpg",
         caption="Hello {}  I am Rolex")
-    )
 
 
 @VINESH.on_message(filters.command("help"))
