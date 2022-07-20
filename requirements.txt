@@ -1,2 +1,2 @@
-program
+pyrogram
 tgcrypto
