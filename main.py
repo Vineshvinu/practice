@@ -23,9 +23,6 @@ async def start_cmd(client, message):
 async def about_cmd(client, message):
     await message.reply_text("Bot status")
 
-
-
-
 print("Bot started")
 
 VINESH.run()
