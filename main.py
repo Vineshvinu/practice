@@ -16,7 +16,7 @@ VINESH = Client(
 @VINESH.on_message(filters.command("start"))
 async def start_cmd(client, message):
     await message.reply_photo(
-        photo="value",
+        photo="https://telegra.ph/file/c747f9fd6721860623ee1.jpg",
         caption="Hello guys I am")
 
 @VINESH.on_message(filters.command("about"))
