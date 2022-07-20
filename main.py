@@ -31,7 +31,7 @@ async def help_cmd(client, message):
     await message.reply_photo(
         photo="https://telegra.ph/file/c747f9fd6721860623ee1.jpg",
         caption="Hello {}  I am Rolex")
-        reply_markup=InlineKeyboardMarkup(
+        reply_Markup=InlineKeyboardMarkup(
             [[
                 "HELP 🤗", "VINU ❤️", "ABOUT ⚙️"
             ],[
