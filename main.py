@@ -19,29 +19,6 @@ async def about_cmd(client, message):
     await message.reply_text("Bot status")
 
 
-@VINESH.on_message(filters.command("LIVE"))
-async def live_cmd(client, message):
-    await message.reply_photo(
-        photo="https://telegra.ph/file/c747f9fd6721860623ee1.jpg",
-        caption="Hello {}  I am Rolex")
-
-
-@VINESH.on_message(filters.command("help"))
-async def help_cmd(client, message):
-    await message.reply_photo(
-        photo="https://telegra.ph/file/c747f9fd6721860623ee1.jpg",
-        caption="Hello {}  I am Rolex")
-        reply_Markup=InlineKeyboardMarkup(
-            [[
-                "HELP 🤗", "VINU ❤️", "ABOUT ⚙️"
-            ],[
-                "JOIN MY CHANNEL"
-            ]],
-            resize_Keyboard=True,
-            one_time_Keyboard=True
-        )
-    )
-
 @VINESH.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
     buttons = [[
@@ -58,15 +35,7 @@ async def start(client, message):
                 message.from_user.first_name),
         parse_mode="html")
 
-
-@VINESH.on_message(filters.regex("HELP 🤗"))
-async def help_keyboard(client, message):
-   await message.reply_text(
-       reply_text="HELP KEYBOARD"
-   )
-
     
-
 print("Bot started")
 
 VINESH.run()
