@@ -19,8 +19,8 @@ async def about_cmd(client, message):
     await message.reply_text("Bot status")
 
 
-@VINESH.on_message(filters.command("start"))
-async def start_cmd(client, message):
+@VINESH.on_message(filters.command("LIVE"))
+async def live_cmd(client, message):
     await message.reply_photo(
         photo="https://telegra.ph/file/c747f9fd6721860623ee1.jpg",
         caption="Hello {}  I am Rolex")
@@ -42,6 +42,21 @@ async def help_cmd(client, message):
         )
     )
 
+@VINESH.on_message(filters.private & filters.command(['start']))
+async def start(client, message):
+    buttons = [[
+        InlineKeyboardButton('📜 Support Group', url='https://t.me/cinemapranthanmaar'),
+        InlineKeyboardButton('Owner ♻️', url='https://t.me/shijilraj')
+    ],[
+        InlineKeyboardButton('SouceCode 💡', url='https://github.com/Sh-Jil/Forwardit')
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await client.send_message(
+        chat_id=message.chat.id,
+        reply_markup=reply_markup,
+        text=Translation.START_TXT.format(
+                message.from_user.first_name),
+        parse_mode="html")
 
 
 @VINESH.on_message(filters.regex("HELP 🤗"))
