@@ -20,7 +20,7 @@ async def about_cmd(client, message):
 
 @VINESH.on_message(filters.command("start"))
 async def start_cmd(client, message):
-    await message.reply_text("**Hello {message.from_user.first_name } My main  commands are here as follows /start /about /help /love**")
+    await message.reply_text("**Hello {message.from_user.first_name} My main  commands are here as follows /start /about /help /love**")
 
 @VINESH.on_message(filters.command("help"))
 async def help_cmd(client, message):
