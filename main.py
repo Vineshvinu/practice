@@ -1,7 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import ( InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
-from helper.database import  insert 
-
+ 
 
 API_ID = "15806487"
 API_HASH = "c7c7fbd61954591c16599a8330faa2e3"
