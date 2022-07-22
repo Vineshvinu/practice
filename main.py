@@ -28,24 +28,7 @@ async def help_cmd(client, message):
 
 @VINESH.on_message(filters.command("love"))
 async def love_cmd(client, message):
-    await message.reply_text("```ಮಿಡಿಲ್ ಕ್ಲಾಸ್ ಹುಡುಗ 2022 - ಕನ್ನಡ ಡಬ್ #HDRip
-
-250MB
-https://rocklinks.net/Rl4FFOja
-
-400MB
-https://rocklinks.net/shvL
-
-720p 800MB
-https://rocklinks.net/dv7ICGB9
-
-1080p 1.3GB
-https://rocklinks.net/5B7hCoX
-
-✅👇👇 How to download or watch movie 
-https://t.me/mdisk_kannada_movie/11
-
-MXPlayer App ಮೂಲಕ ಯಾವುದೇ ಅಡೆ ತಡೆ ಇಲ್ಲದೆ ವೀಕ್ಷಿಸಿ ಅಥವಾ  ಡೌನಲೋಡ್ ಮಾಡಿ```")
+    await message.reply_text("```I HATE YOU```")
 
     
 print("Bot started")
