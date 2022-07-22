@@ -36,7 +36,7 @@ async def code_cmd(client, message):
     await message.reply_text("```Coding in process.............99%```")
 
 @VINESH.on_message(filters.private & filters.command(["vinu"]))
-async def start(client,message):
+async def vinu(client,message):
 	insert(int(message.chat.id))
 	await message.reply_text(text =f"""
         Hello {message.from_user.first_name }
