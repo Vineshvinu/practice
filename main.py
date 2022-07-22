@@ -20,19 +20,19 @@ async def about_cmd(client, message):
 
 @VINESH.on_message(filters.command("start"))
 async def start_cmd(client, message):
-    await message.reply_text("**Fuck off** My main sex commands are here as follows /start /about /help ")
+    await message.reply_text("**Hello {message.from_user.first_name } My main  commands are here as follows /start /about /help /love**")
 
 @VINESH.on_message(filters.command("help"))
 async def help_cmd(client, message):
-    await message.reply_text("```ಹೋಗಿ ಹುಡ್ಗೀರ್ ತುಲ್ಲು ನೆಕ್ಕು  ಸೂಲೆಮಗನೇ```")
+    await message.reply_text("```I think you are genius and you can't get any help from others```")
 
 @VINESH.on_message(filters.command("love"))
 async def love_cmd(client, message):
-    await message.reply_text("```I HATE YOU```")
+    await message.reply_text("```ME 2 ❤️ you```")
 
 @VINESH.on_message(filters.command("code"))
 async def code_cmd(client, message):
-    await message.reply_text("```Error Code ninn appan thord```")
+    await message.reply_text("```Coding in process.............99%```")
 
 print("Bot started")
 
