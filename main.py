@@ -3,7 +3,7 @@ from pyrogram.types import ReplyKeyboardMarkup
 
 API_ID = "15806487"
 API_HASH = "c7c7fbd61954591c16599a8330faa2e3"
-BOT_TOKEN = "5434454921:AAH0X5jkEx6-RDB24rHcYxiJ3Avveo3NsBo"
+BOT_TOKEN = "5351190742:AAHgoJ3qT7WgJNCakq1pxe4sRerHYH783W8"
 
 
 VINESH = Client(
