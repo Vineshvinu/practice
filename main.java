@@ -7,7 +7,8 @@ public class Main {
         ApiContextInitializer.init();
         // Instantiate Telegram Bots API
         TelegramBotsApi botsApi = new TelegramBotsApi();
-// Register our bot
+        
+        // Register our bot
         try {
             botsApi.registerBot(new MyAmazingBot());
         } catch (TelegramApiException e) {
@@ -15,7 +16,3 @@ public class Main {
         }
     }
 }
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
