@@ -33,6 +33,10 @@ async def love_cmd(client, message):
 @VINESH.on_message(filters.command("code"))
 async def code_cmd(client, message):
     await message.reply_text("```Error Code ninn appan thord```")
+
+@VINESH.on_message(filters.("hi"))
+async def hi(client, message):
+    await message.reply_text("```HELLO```")
     
 print("Bot started")
 
