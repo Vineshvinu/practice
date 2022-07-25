@@ -198,3 +198,111 @@ class ParallelTransferrer:
     async def upload(self, part: bytes) -> None:
         await self.senders[self.upload_ticker].next(part)
         self.upload_ticker = (self.upload_ticker + 1) % len(self.senders)
+
+    async def finish_upload(self) -> None:
+        await self._cleanup()
+
+    async def download(self, file: TypeLocation, file_size: int,
+                       part_size_kb: Optional[float] = None,
+                       connection_count: Optional[int] = None) -> AsyncGenerator[bytes, None]:
+        connection_count = connection_count or self._get_connection_count(file_size)
+        part_size = (part_size_kb or utils.get_appropriated_part_size(file_size)) * 1024
+        part_count = math.ceil(file_size / part_size)
+        log.debug("Starting parallel download: "
+                  f"{connection_count} {part_size} {part_count} {file!s}")
+        await self._init_download(connection_count, file, part_count, part_size)
+
+        part = 0
+        while part < part_count:
+            tasks = []
+            for sender in self.senders:
+                tasks.append(self.loop.create_task(sender.next()))
+            for task in tasks:
+                data = await task
+                if not data:
+                    break
+                yield data
+                part += 1
+                log.debug(f"Part {part} downloaded")
+
+        log.debug("Parallel download finished, cleaning up connections")
+        await self._cleanup()
+
+
+parallel_transfer_locks: DefaultDict[int, asyncio.Lock] = defaultdict(lambda: asyncio.Lock())
+
+
+def stream_file(file_to_stream: BinaryIO, chunk_size=1024):
+    while True:
+        data_read = file_to_stream.read(chunk_size)
+        if not data_read:
+            break
+        yield data_read
+
+
+async def _internal_transfer_to_telegram(client: TelegramClient,
+                                         response: BinaryIO,
+                                         progress_callback: callable
+                                         ) -> Tuple[TypeInputFile, int]:
+    file_id = helpers.generate_random_long()
+    file_size = os.path.getsize(response.name)
+
+    hash_md5 = hashlib.md5()
+    uploader = ParallelTransferrer(client)
+    part_size, part_count, is_large = await uploader.init_upload(file_id, file_size)
+    buffer = bytearray()
+    for data in stream_file(response):
+        if progress_callback:
+            r = progress_callback(response.tell(), file_size)
+            if inspect.isawaitable(r):
+                await r
+        if not is_large:
+            hash_md5.update(data)
+        if len(buffer) == 0 and len(data) == part_size:
+            await uploader.upload(data)
+            continue
+        new_len = len(buffer) + len(data)
+        if new_len >= part_size:
+            cutoff = part_size - len(buffer)
+            buffer.extend(data[:cutoff])
+            await uploader.upload(bytes(buffer))
+            buffer.clear()
+            buffer.extend(data[cutoff:])
+        else:
+            buffer.extend(data)
+    if len(buffer) > 0:
+        await uploader.upload(bytes(buffer))
+    await uploader.finish_upload()
+    if is_large:
+        return InputFileBig(file_id, part_count, "upload"), file_size
+    else:
+        return InputFile(file_id, part_count, "upload", hash_md5.hexdigest()), file_size
+
+
+async def download_file(client: TelegramClient,
+                        location: TypeLocation,
+                        out: BinaryIO,
+                        progress_callback: callable = None
+                        ) -> BinaryIO:
+    size = location.size
+    dc_id, location = utils.get_input_location(location)
+    # We lock the transfers because telegram has connection count limits
+    downloader = ParallelTransferrer(client, dc_id)
+    downloaded = downloader.download(location, size)
+    async for x in downloaded:
+        out.write(x)
+        if progress_callback:
+            r = progress_callback(out.tell(), size)
+            if inspect.isawaitable(r):
+                await r
+
+    return out
+
+
+async def upload_file(client: TelegramClient,
+                      file: BinaryIO,
+                      progress_callback: callable = None,
+
+                      ) -> TypeInputFile:
+    res = (await _internal_transfer_to_telegram(client, file, progress_callback))[0]
+    return res
