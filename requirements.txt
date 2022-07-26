@@ -1,2 +1,7 @@
-pyrogram
 tgcrypto
+Pillow
+humanize
+hachoir
+pyrogram==1.4.16
+pymongo
+dnspython
